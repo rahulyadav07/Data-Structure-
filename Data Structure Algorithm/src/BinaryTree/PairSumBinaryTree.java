@@ -1,5 +1,8 @@
 package BinaryTree;
 
+import java.util.ArrayList;
+
+import java.util.Collections;
 import java.util.Scanner;
 
 
@@ -41,49 +44,58 @@ public class PairSumBinaryTree {
 		}
 		return root;
 	}
-	
-	public static boolean checkBST(BinaryTreeNode<Integer> root) {
-		return checkBST(root,Integer.MIN_VALUE,Integer.MAX_VALUE);
-	}
-	private static boolean checkBST(BinaryTreeNode<Integer> root, int minValue, int maxValue) {
-		if(root==null) {
-			return true;
-		}
-		if(root.data>minValue && root.data<=maxValue) {
-			boolean ans1 = checkBST(root.left,minValue,root.data-1);
-			boolean ans2 = checkBST(root.right,root.data+1,maxValue);
-			return ans1&&ans2;
-		}
-		else {
-			return false;
-		}
-	}
 
-	public static int height(BinaryTreeNode<Integer> root) {
-		if(root==null) {
-			return 0;
-		}
-		int left = height(root.left);
-		int right = height(root.right);
-		int max = Math.max(left, right);
-		return max+1;
+	
+	public static void convertToArray(BinaryTreeNode<Integer> root, ArrayList<Integer> output){
+	    if(root==null){
+	        return ;
+	    }
+	    output.add(root.data);
+	    convertToArray(root.left,output);
+	    convertToArray(root.right,output);
 	}
-	public static int PairSum(BinaryTreeNode<Integer> root) {
-		if(root==null) {
-			return -1;
+		public static void nodesSumToS(BinaryTreeNode<Integer> root, int sum) {
+			// Write your code here
+	        ArrayList<Integer> output= new ArrayList<Integer>();
+	        convertToArray(root,output);
+	        Collections.sort(output);
+	        int i =0, j=output.size()-1;
+	        while(i<j){
+	            if(output.get(i)+output.get(j)== sum){
+	                int countI = 1, countJ=1;
+	                int k = i+1;
+	                while(output.get(k)==output.get(i)){
+	                    countI++;
+	                    k++;
+	                }
+	                k=j-1;
+	                while(output.get(k)==output.get(j)){
+	                    countJ++;
+	                    k--;
+	                }
+	                int count = countI*countJ;
+	                while(count>0){
+	                    System.out.println(output.get(i)+" " +output.get(j));
+	                    count--;
+	                }
+	                i+= countI;
+	                j-=countJ;
+	                
+	                    
+	                }
+	            else if(output.get(i)+output.get(j)>sum){
+	                j--;
+	            } else {
+	                i++;
+	            }
+	        }
+
 		}
-		
-		if(checkBST(root)) {
-			return height(root);
-		}
-		else {
-		int left = PairSum(root.left);
-		int right = PairSum(root.right);
-		return Math.max(left, right);
-		}
-	}
 	public static void main(String[] args) {
+		Scanner s = new Scanner(System.in);
+		int x =s.nextInt();
 		BinaryTreeNode<Integer> root = takeinput();
-		System.out.println(PairSum(root));
+		nodesSumToS(root,x);
+
 	}
 }
