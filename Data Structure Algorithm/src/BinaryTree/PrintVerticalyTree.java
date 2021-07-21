@@ -45,49 +45,43 @@ public class PrintVerticalyTree {
 	}
 
 
-	 public static void printVerticalOrderUtil(BinaryTreeNode<Integer> root, int vertical_level, HashMap<Integer, ArrayList<Integer>> m) {
-	        // Base case
-	        if(root == null) {
-	            return;
+	public static void printVerticalOrderUtil(BinaryTreeNode<Integer> root, int vertical_level, HashMap<Integer, ArrayList<Integer>> m) {
 
-	        }
+		if(root == null) {
+			return;
 
-	        // storing current node in the hashmap which is passed by reference 
+		}
+		ArrayList<Integer> temp = m.get(vertical_level);
+		if(temp == null) {
+			temp = new ArrayList<Integer>();
+		}
 
-	        ArrayList<Integer> temp = m.get(vertical_level);
-	        if(temp == null) {
-	            temp = new ArrayList<Integer>();
-	        }
+		temp.add(root.data);
+		m.put(vertical_level, temp);
 
-	        temp.add(root.data);
-	        m.put(vertical_level, temp);
-	        //Recursive call in left subtree with vertical level-1 
-	        printVerticalOrderUtil(root.left, vertical_level-1, m);
+		printVerticalOrderUtil(root.left, vertical_level-1, m);
 
-	        // Recursive call in right subtree with vertical_level+1 
-	        printVerticalOrderUtil(root.right, vertical_level+1, m);
 
-	    }
+		printVerticalOrderUtil(root.right, vertical_level+1, m);
 
-	    public static void printBinaryTreeVerticalOrder (BinaryTreeNode<Integer> root) {
+	}
 
-	        //creating a hashmap which stores vertical order level number and a vector containing nodes at that 
-	        HashMap<Integer, ArrayList<Integer>> m = new HashMap<Integer, ArrayList<Integer>>();
-	        int vertical_level = 0; //vertical level number 
-	        printVerticalOrderUtil(root, vertical_level, m);
+	public static void printBinaryTreeVerticalOrder (BinaryTreeNode<Integer> root) {
 
-	        // Traverse the hashmap and print nodes at every vertical level
 
-	        Set<Integer> s = m.keySet(); 
-	        for (int i: s) {
-	            ArrayList<Integer> a = m.get(i); 
-	            for(int j : a) {
-	                System.out.print(j + " ");
+		HashMap<Integer, ArrayList<Integer>> m = new HashMap<Integer, ArrayList<Integer>>();
+		int vertical_level = 0; //vertical level number 
+		printVerticalOrderUtil(root, vertical_level, m);
+		Set<Integer> s = m.keySet(); 
+		for (int i: s) {
+			ArrayList<Integer> a = m.get(i); 
+			for(int j : a) {
+				System.out.print(j + " ");
 
-	            } 
-	            System.out.println();
-	        }
-	    }
+			} 
+			System.out.println();
+		}
+	}
 	public static void main(String[] args) {
 		BinaryTreeNode<Integer> root = takeinput();
 		printBinaryTreeVerticalOrder(root);

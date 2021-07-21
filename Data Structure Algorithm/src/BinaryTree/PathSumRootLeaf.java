@@ -45,7 +45,7 @@ public class PathSumRootLeaf {
 		rootToLeafPathsSumToK(root,k,"");
 	}
 	public static void rootToLeafPathsSumToK(BinaryTreeNode<Integer> root, int k,String s) {
-		if(root==null) {
+		if(root==null){
 			return;
 		}
 		if(root.left==null && root.right==null && root.data==k) {
@@ -59,7 +59,6 @@ public class PathSumRootLeaf {
 		Scanner s = new Scanner(System.in);
 		BinaryTreeNode<Integer> root = takeinput();
 		int n = s.nextInt();
-		
 		rootToLeafPathsSumToK(root, n);
 	}
 }

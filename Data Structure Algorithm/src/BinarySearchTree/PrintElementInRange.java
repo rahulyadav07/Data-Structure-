@@ -5,7 +5,7 @@ import java.util.Scanner;
 public class PrintElementInRange {
 	public static BinarySearchNode takeinput(){
 		Scanner s = new Scanner(System.in);
-		QueueUsingLL<BinarySearchNode> pendingnode = new QueueUsingLL<>();
+		QueueUsingLL<BinarySearchNode<Integer>> pendingnode = new QueueUsingLL<>();
 		System.out.println("Enter the root element");
 		int rootdata =  s.nextInt();
 		if(rootdata==-1) {
